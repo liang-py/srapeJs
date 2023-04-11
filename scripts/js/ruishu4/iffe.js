@@ -6,7 +6,34 @@ window = {
     eval:function (data) {
         eval_js = data
     },
-    document:{}
+    document:{},
+    localStorage: {
+    "FSSBB22": "466975:2647",
+    "FSSBB48": "466833:1",
+    "FSSBB43": "466994:2",
+    "FSSBB3": "466975:mkl4B3pd.bIfLLkp5TSWoG",
+    "FSSBB24": "466833:6",
+    "$_fh0": "ME8CVTpv2TBOiYLWNZts6ucTlM0",
+    "FSSBB46": "466977:2",
+    "FSSBB52": "466994:1",
+    "FSSBB90": "466830:1",
+    "$_fb": "eUjYZ38c56UCr3Zxp0YFMKPQmlPFd19y0Js4dJtGnu9m8szBZhM5b1_nLNb9G.HD",
+    "FSSBB17": "466975:LUDV_JcV9BV8vB8w5oohfG",
+    "$_YWTU": "eNP0Exw0t8sKxwP4EJS2z0zlMb0rE48YCbTYDyHaF0a",
+    "$_f1": "Dw3Au.0k5f2nKwZPxHMUiHhe47Q",
+    "$_f0": "bPDdOo9zc_ruy.7NU5ZzQJvtX80",
+    "__#classType": "localStorage",
+    "FSSBB45": "466977:1",
+    "$_nd": "987999",
+    "FSSBB93": "466830:1",
+    "FSSBB94": "466975:1",
+    "FSSBB23": "466833:975",
+    "FSSBB2": "466975:fvuhsRi6N3Q72uJbEJLMwa",
+    "FSSBB42": "466977:2",
+    "FSSBB18": "466975:WCaXmJIhM_ptB9k4GtGgDa",
+    "$_cDro": "383",
+    "$_ck": "LB5Ch7ydOsPjafifFwgToa"
+}
 }
 
 location = {
@@ -390,7 +417,9 @@ var _$_7, _$cn;
 var _$Kb, _$QN, _$Wm;
 var _$OG;
 var _$ge = [0x5A, 0x4B, 0x3C, 0x2D];
-
+var _$zU = {};
+_$4g[_$sH[6]](_$zU);
+_$KB = _$Jg(_$XD(31));
 
 function _$7l() {
     return _$8V;
@@ -936,19 +965,45 @@ function _$wo154(){
 function _$wo668(){
     var _$ot = _$Sf(_$Iv._$YA);
     // {}
+    function _$jm(_$6i) {
+        if (_$6i < 2)
+            return 1;
+        return _$jm(_$6i - 1) + _$jm(_$6i - 2);
+    }
+    function _$vD(_$6i, _$No) {
+        _$6i = 37;
+        _$No = 11;
+        return _$jm(_$No) + _$6i;
+    }
+    function _$Ml(_$6i) {
+        var _$ot = 0;
+        for (var _$0R = 1; _$0R < _$6i; ++_$0R)
+            _$ot += _$0R;
+        return _$ot;
+    }
+    function _$Tk() {
+        if (_$7y >= 8 && !_$jK[_$sH[465]])
+            return 201;
+        return 203;
+    }
+    _$Iv._$Xj = _$vD(_$Ye, _$4x);
+    _$Iv._$4P = _$Ml(15) - 4;
+    _$Iv._$$6 = _$Tk()
+    _$Iv._$B1 = _$jm(11) + 37;
     return _$ot[_$sH[29]]([_$Iv._$Xj, _$Iv._$4P, _$Iv._$$6, _$Iv._$B1]);
 
 }
 function _$wo585(){
     // 缺少变量定义
     var _$0R = _$jK[_$Wh(_$sH[90])];
-    var _$ZS = _$0R[_$sH[146]] || _$0R[_$sH[198]] || _$0R[_$sH[467]];
-    _$zu = _$ZS;
-    _$zu = _$ZS[_$sH[2]] == _$sH[292];
-    _$zu = _$ZS[_$sH[2]] == _$sH[128];
-    _$zu = _$ZS[_$sH[2]] == _$sH[265];
-    _$zu = _$ZS[_$sH[2]] == _$sH[468];
-    _$zu = _$ZS[_$sH[2]] == _$sH[620];
+    // var _$ZS = _$0R[_$sH[146]] || _$0R[_$sH[198]] || _$0R[_$sH[467]];
+    // _$zu = _$ZS;
+    // _$zu = _$ZS[_$sH[2]] == _$sH[292];
+    // _$zu = _$ZS[_$sH[2]] == _$sH[128];
+    // _$zu = _$ZS[_$sH[2]] == _$sH[265];
+    // _$zu = _$ZS[_$sH[2]] == _$sH[468];
+    // _$zu = _$ZS[_$sH[2]] == _$sH[620];
+    _$zu = false
     _$ot = 0;
     return _$ot; // 0
 
