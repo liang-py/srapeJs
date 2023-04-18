@@ -83,9 +83,10 @@ class RuiShu:
             }
         """
         ctx = execjs.compile(add_js)
+        # 通过执行js字符串获取
         ts, exec_js = ctx.call('ts', src_data, iffe_data)
         print(ts)
-        print(exec_js)
+        # print(exec_js)
         # 获取20位核心代码的后四位
         ts_4_variable = re.findall(r'\[29\]\]\(\[(.*?)\]\)', exec_js)[0].split(',')
         ts_name = ts_4_variable[0].split('.')[0].split('$')[1]
@@ -100,11 +101,36 @@ class RuiShu:
                 if func_name in t:
                     ts_4_variable_index.append(ts_20_function.index(t))
         print(ts_4_variable_index)
+        # 20个赋值函数函数名
         base_index = ['_$bJ', '_$zr', '_$Sf', '_$B0', '_$pV', '_$Ns', '_$Lm', '_$Ub', '_$pn', '_$Yz', '_$7b', '_$U6', '_$BW', '_$mw', '_$ry', '_$LZ', '_$ZE', '_$9j', '_$25']
         # 替换js执行文件
         with open('../scripts/js/ruishu4/iffe.js', 'r', encoding='utf8') as f:
             f_js = f.read()
 
+        # ts,content 赋值
+        env_add_js = """
+        window = global;
+        window.$_ts = %s;
+        """ % ts
+        f_js = env_add_js + f_js
+        # js文件动态替换， 将本地文件替换成对应位置的函数
+        # 20位核心数组替换
+        f_js = f_js.replace('[_$Iv._$Xj]', '["%s"]' % base_index[ts_4_variable_index[0]])
+        f_js = f_js.replace('[_$Iv._$4P]', '["%s"]' % base_index[ts_4_variable_index[1]])
+        f_js = f_js.replace('[_$Iv._$$6]', '["%s"]' % base_index[ts_4_variable_index[2]])
+        f_js = f_js.replace('[_$Iv._$B1]', '["%s"]' % base_index[ts_4_variable_index[3]])
+        # ts参数替换
+        ts_keys = list(ts.keys())
+        f_js = f_js.replace('_$Iv._$z0', '_$Iv.%s' % ts_keys[2])
+        f_js = f_js.replace('_$Iv._$Wh', '_$Iv.%s' % ts_keys[3])
+        f_js = f_js.replace('_$Iv._$di', '_$Iv.%s' % ts_keys[4])
+        f_js = f_js.replace('_$Iv._$ut', '_$Iv.%s' % ts_keys[15])
+        f_js = f_js.replace('_$Iv._$n4', '_$Iv.%s' % ts_keys[17])
+        f_js = f_js.replace('_$Iv._$T1', '_$Iv.%s' % ts_keys[19])
+        f_js = f_js.replace('_$Iv._$YA', '_$Iv.%s' % ts_keys[20])
+        ctx = execjs.compile(f_js)
+        cookie = ctx.call('_$_v', self.content)
+        print(cookie)
         res = cookies_items(self.session.cookies.items())
         print(res)
 

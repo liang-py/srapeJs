@@ -1,5 +1,5 @@
 ts_str = """
-_$Iv._$bJ = _$fs;
+    _$Iv._$bJ = _$fs;
     _$Iv._$zr = _$BJ;
     _$Iv._$Sf = _$Do;
     _$Iv._$B0 = _$3K;
@@ -20,6 +20,8 @@ _$Iv._$bJ = _$fs;
     _$Iv._$25 = _$Q0;
 """
 index_func = []
-for t in ts_str.replace(' ', '').split(';')[:-1]:
-    index_func.append(t.split('=')[0].split('.')[1])
+print(ts_str.replace('\n','').replace(' ','').split(';'))
+for t in ts_str.replace('\n','').replace(' ','').split(';'):
+    if t:
+        index_func.append(t.split('=')[-1])
 print(index_func)
