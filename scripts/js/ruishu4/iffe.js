@@ -1219,7 +1219,9 @@ function _$wo747(_$6i){
 function _$wo768(_$6i){
     // 进入747循环
     var _$ot = _$wo747(_$6i)
-    var cookies = "FSSBBIl1UgzbN7N80T" + '=' + _$ot + "" + _$sH[494] + _$Vg(_$KB);
+    // 生成cookies
+    var cookies = "FSSBBIl1UgzbN7N80T" + '=' + _$ot;
+    // var cookies = "FSSBBIl1UgzbN7N80T" + '=' + _$ot + "" + _$sH[494] + _$Vg(_$KB);
     console.log(cookies)
     return cookies
 
