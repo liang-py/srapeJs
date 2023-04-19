@@ -79,7 +79,6 @@ class RuiShu:
                 eval(iffe);
                 console.log(window.$_ts)
                 return [window.$_ts, eval_js]
-            
             }
         """
         ctx = execjs.compile(add_js)
@@ -126,10 +125,10 @@ class RuiShu:
         f_js = f_js.replace('_$Iv._$di', '_$Iv.%s' % ts_keys[4])
         f_js = f_js.replace('_$Iv._$ut', '_$Iv.%s' % ts_keys[15])
         f_js = f_js.replace('_$Iv._$n4', '_$Iv.%s' % ts_keys[17])
-        f_js = f_js.replace('_$Iv._$T1', '_$Iv.%s' % ts_keys[19])
-        f_js = f_js.replace('_$Iv._$YA', '_$Iv.%s' % ts_keys[20])
-        ctx = execjs.compile(f_js)
-        cookie = ctx.call('_$_v', self.content)
+        # f_js = f_js.replace('_$Iv._$T1', '_$Iv.%s' % ts_keys[19])
+        f_js = f_js.replace('_$Iv._$YA', '_$Iv.%s' % ts_keys[19])
+        ctx_cookie = execjs.compile(f_js)
+        cookie = ctx_cookie.call('_$_v', self.content)
         print(cookie)
         res = cookies_items(self.session.cookies.items())
         print(res)
