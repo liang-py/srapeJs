@@ -6,6 +6,8 @@ from urllib.parse import urljoin
 from pyquery import PyQuery as pq
 import execjs
 import os
+from http import cookiejar
+
 
 class RuiShu:
 
@@ -52,6 +54,7 @@ class RuiShu:
             
             window = {
                 $_ts: {},
+                localStorage: {},
                 // 为什么添加data
                 eval: function (data) {
                     eval_js = data
@@ -77,15 +80,16 @@ class RuiShu:
             function ts(f_js, iffe){
                 eval(f_js);
                 eval(iffe);
-                console.log(window.$_ts)
-                return [window.$_ts, eval_js]
+                return [window, eval_js]
             }
         """
         ctx = execjs.compile(add_js)
-        # 通过执行js字符串获取
+        # 通过执行js字符串获取ts, 虚拟机代码
         ts, exec_js = ctx.call('ts', src_data, iffe_data)
         print(ts)
-        # print(exec_js)
+        return ts, exec_js
+
+    def get_cookies(self, ts, exec_js):
         # 获取20位核心代码的后四位
         ts_4_variable = re.findall(r'\[29\]\]\(\[(.*?)\]\)', exec_js)[0].split(',')
         ts_name = ts_4_variable[0].split('.')[0].split('$')[1]
@@ -99,18 +103,20 @@ class RuiShu:
             for t in ts_20_function:
                 if func_name in t:
                     ts_4_variable_index.append(ts_20_function.index(t))
+                    continue
         print(ts_4_variable_index)
         # 20个赋值函数函数名
-        base_index = ['_$bJ', '_$zr', '_$Sf', '_$B0', '_$pV', '_$Ns', '_$Lm', '_$Ub', '_$pn', '_$Yz', '_$7b', '_$U6', '_$BW', '_$mw', '_$ry', '_$LZ', '_$ZE', '_$9j', '_$25']
+        base_index = ['_$Dd', '_$bJ', '_$zr', '_$Sf', '_$B0', '_$pV', '_$Ns', '_$Lm', '_$Ub', '_$pn', '_$Yz', '_$7b', '_$U6',
+                      '_$BW', '_$mw', '_$ry', '_$LZ', '_$ZE', '_$9j', '_$25']
         # 替换js执行文件
         with open('../scripts/js/ruishu4/iffe.js', 'r', encoding='utf8') as f:
             f_js = f.read()
 
         # ts,content 赋值
         env_add_js = """
-        window = global;
-        window.$_ts = %s;
-        """ % ts
+                window = global;
+                window.$_ts = %s;
+                """ % ts
         f_js = env_add_js + f_js
         # js文件动态替换， 将本地文件替换成对应位置的函数
         # 20位核心数组替换
@@ -134,23 +140,21 @@ class RuiShu:
         #     cookieJs = f.read()
         cookie_ctx = execjs.compile(f_js)
         cookie = cookie_ctx.call('_$_v', self.content)
-        print(cookie)
+        print(cookie.split('='))
+        self.session.cookies.update({cookie.split('=')[0]: cookie.split('=')[1]})
         res = cookies_items(self.session.cookies.items())
         print(res)
 
-    def get_cookies(self, content):
-        cookies = ''
-        return cookies
 
-    def get_index(self):
-        cookies = self.get_cookies(self.content)
+    def get_index(self, ts, exec_js):
+        self.get_cookies(ts, exec_js)
         resp = self.session.get(self.url)
         if resp.status_code == 200:
             print(resp.text)
-        print(cookies)
+        print(resp)
 
 
 if __name__ == '__main__':
     rs = RuiShu()
-    rs.first_index()
-    rs.get_index()
+    ts, exec_js = rs.first_index()
+    rs.get_index(ts, exec_js)
