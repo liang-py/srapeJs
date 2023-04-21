@@ -80,13 +80,13 @@ class RuiShu:
             function ts(f_js, iffe){
                 eval(f_js);
                 eval(iffe);
-                return [window, eval_js]
+                return [window.$_ts, eval_js]
             }
         """
         ctx = execjs.compile(add_js)
         # 通过执行js字符串获取ts, 虚拟机代码
         ts, exec_js = ctx.call('ts', src_data, iffe_data)
-        print(ts)
+        print(list(ts.keys()))
         return ts, exec_js
 
     def get_cookies(self, ts, exec_js):
@@ -150,7 +150,7 @@ class RuiShu:
         self.get_cookies(ts, exec_js)
         resp = self.session.get(self.url)
         if resp.status_code == 200:
-            print(resp.text)
+            print(resp.content.decode())
         print(resp)
 
 

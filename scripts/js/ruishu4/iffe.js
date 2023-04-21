@@ -182,6 +182,11 @@ function _$c6(_$6i) {
         return _$ot;
     return _$6i + _$ot;
 }
+function _$VI(_$6i, _$No) {
+    var _$ot = _$Sf(_$6i);
+    var _$0R = new _$pt(_$No);
+    return _$0R._$jK(_$ot, true);
+}
 // 初始化 SK
 function _$Wh(_$6i) {
     var _$ot = _$6i.length;
