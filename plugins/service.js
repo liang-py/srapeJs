@@ -16,16 +16,19 @@ app.get('/GM/Header', (req,res)=>{
 app.post('/DM/encData', (req,res)=>{
     var data = req.data
     console.log(data)
-    encData = sdk_GM.getEnc(data)
+    encData = sdk_JSL.Cookie(data)
     res.send(encData)
 })
 
-app.post('/GM/decData', (req,res)=>{
-    var data = req.data
-    decData = sdk_GM.getDec(data)
-    res.send(decData)
+app.get('/cookie', (req,res)=>{
+    var data = req.data;
+    decData = sdk_GM.getDec(data);
+    res.send(decData);
 })
 
+app.get('/', (req, res) => {
+    res.send('hello world')
+});
 app.get('/', (req, res) => {
     res.send('hello world')
 })
