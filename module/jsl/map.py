@@ -30,7 +30,7 @@ def get_go_params():
 
 def get_cookie():
     params = get_go_params()
-    url = '127.0.0.1:3000/cookie'
+    url = 'http://127.0.0.1:3000/cookie'
     res = requests.get(url, headers=headers, params=params)
     print(res)
 

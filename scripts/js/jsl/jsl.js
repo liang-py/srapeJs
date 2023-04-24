@@ -29,7 +29,7 @@ function Cookie(_0x490278){
                     ]['substr'](_0xd26570, 0x1), _0x2b11e4[0x1]);
                 if (hash(_0x2f35a9) == _0x22567d) {
                 return [_0x2f35a9, _0x2259a2['GKvnA'](new Date(), new Date())];
-                // }
+                }
             }
         }
     }
@@ -39,18 +39,4 @@ function Cookie(_0x490278){
 
 module.exports = {
     Cookie
-}
-
-// _0x490278
-// var _0x490278 = {
-//     "bts": ["1679361015.819|0|t%2", "6RDjPFfR02wk0UuDuPLQ4tqs%3D"],
-//     "chars": "KsZOIIJtwjMCBMaQnUNvqd",
-//     "ct": "fefe923b97d49ce2f3639c15f92aeb2bdd9f1e50",
-//     "ha": "sha1",
-//     "tn": "__jsl_clearance_s",
-//     "vt": "3600",
-//     "wt": "1500"
-// }
-//
-// console.log(Cookie(_0x490278))
-// go(data)
+};

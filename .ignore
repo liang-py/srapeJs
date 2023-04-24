@@ -1,2 +1,4 @@
 .pyc
-scripts/plugins/node_modules
+plugins/node_modules
+plugins/package-lock.json
+plugins/package.json
