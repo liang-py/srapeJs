@@ -5,8 +5,6 @@ from utils.CookieJar import cookies_items
 from urllib.parse import urljoin
 from pyquery import PyQuery as pq
 import execjs
-import os
-from http import cookiejar
 
 
 class RuiShu:
@@ -108,11 +106,11 @@ class RuiShu:
         # 20个赋值函数函数名
         base_index = ['_$Dd', '_$bJ', '_$zr', '_$Sf', '_$B0', '_$pV', '_$Ns', '_$Lm', '_$Ub', '_$pn', '_$Yz', '_$7b', '_$U6',
                       '_$BW', '_$mw', '_$ry', '_$LZ', '_$ZE', '_$9j', '_$25']
-        # 替换js执行文件
+        # 获取本地js执行文件
         with open('../scripts/js/ruishu4/iffe.js', 'r', encoding='utf8') as f:
             f_js = f.read()
 
-        # ts,content 赋值
+        # ts,content 赋值， 拼接js执行文件
         env_add_js = """
                 window = global;
                 window.$_ts = %s;
@@ -133,14 +131,10 @@ class RuiShu:
         f_js = f_js.replace('_$Iv._$n4', '_$Iv.%s' % ts_keys[17])
         # f_js = f_js.replace('_$Iv._$T1', '_$Iv.%s' % ts_keys[19])
         f_js = f_js.replace('_$Iv._$YA', '_$Iv.%s' % ts_keys[19])
-        # with open('cookie_js.js', 'w', encoding='utf8') as f:
-        #     f.write(f_js)
-        #
-        # with open('cookie_js.js', 'r', encoding='utf8') as f:
-        #     cookieJs = f.read()
         cookie_ctx = execjs.compile(f_js)
+        # 需要修改python解释器源代码
         cookie = cookie_ctx.call('_$_v', self.content)
-        print(cookie.split('='))
+        # print(cookie.split('='))
         self.session.cookies.update({cookie.split('=')[0]: cookie.split('=')[1]})
         res = cookies_items(self.session.cookies.items())
         print(res)
